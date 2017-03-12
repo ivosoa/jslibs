@@ -1,7 +1,7 @@
 (function(){
     var _addEventListener = null, _eventQueue = [], _handleCounter = 0;
 
-    var isLibLoaded = function(){
+    var _isJSLibLoaded = function(){
         return (window.jQuery && window.jQuery.Event);
     };
 
@@ -21,7 +21,7 @@
     };
     
     var _handleOnloadEvent = function(){
-        if(isLibLoaded()){
+        if(_isJSLibLoaded()){
             $(document).unbind('click', _handleClick);
             
             for(var i; i < _eventQueue.length; i++){
@@ -40,7 +40,7 @@
         }
     };
 
-    if(_addEventListener && !isLibLoaded()){
+    if(_addEventListener && !_isJSLibLoaded()){
         _addEventListener(document, 'click', _handleClick);
 
         _addEventListener(window, 'load', _handleOnloadEvent);
