@@ -17,9 +17,9 @@
     }
 
     var _handleClick = function(evt){
-		if(!_isJSLibLoaded()){
-			_eventQueue.push(evt);
-		}
+        if(!_isJSLibLoaded()){
+            _eventQueue.push(evt);
+        }
     };
     
     var _handleOnloadEvent = function(){
@@ -29,12 +29,12 @@
             for(var i = 0; i < _eventQueue.length; i++){
                 var eventPath = _eventQueue[i].path;
                 if(!eventPath){
-					break;
-				}
-				// Use trigger handler to only trigger javascript events
-				for(var j = 0; j < eventPath.length; j++){
-					$(eventPath[j]).triggerHandler('click');
-				}
+                    break;
+                }
+                // Use trigger handler to only trigger javascript events
+                for(var j = 0; j < eventPath.length; j++){
+                    $(eventPath[j]).triggerHandler('click');
+                }
             }
         }
         //try again later, but at most only 5 times
