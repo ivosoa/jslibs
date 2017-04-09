@@ -1,0 +1,19 @@
+<!doctype html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="../src/eventCapture.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var clicks = [];
+</script>
+</head>
+<body>
+	<button id="testbutton"onclick="clicks.push('onclickattr');"><span>I AM A BUTTON</span></button>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+		$('#testbutton').on('click', function(){
+			clicks.push('jqueryonclick');
+		});
+	</script>
+</body>
+</html>
