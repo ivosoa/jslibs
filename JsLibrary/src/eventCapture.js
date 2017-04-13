@@ -1,5 +1,5 @@
 (function(){
-    var _addEventListener = null, _eventQueue = [], _handleCounter = 0;
+    var _addEventListener = null, _removeEventListener = null, _eventQueue = [], _handleCounter = 0;
 
     var _isJSLibLoaded = function(){
         return (window.jQuery && window.jQuery.Event);
@@ -9,14 +9,25 @@
         _addEventListener = function(el, eType, fn){
             el.addEventListener(eType, fn, false);
         };
+        
+        _removeEventListener = function(el, eType, fn){
+            el.removeEventListener(eType, fn, false);
+        };
     }
     else if(window.attachEvent){
         _addEventListener = function(el, eType, fn){
             el.addEventListener('on'+eType, fn, false);
         };
+        
+        _removeEventListener = function(el, eType, fn){
+            el.removeEventListener('on'+eType, fn, false);
+        };
     }
 
     var _handleClick = function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+        
         if(!_isJSLibLoaded()){
             _eventQueue.push(evt);
         }
@@ -24,7 +35,7 @@
     
     var _handleOnloadEvent = function(){
         if(_isJSLibLoaded()){
-            $(document).unbind('click', _handleClick);
+            _removeEventListener(document, 'click', _handleClick);
             
             for(var i = 0; i < _eventQueue.length; i++){
                 var eventPath = _eventQueue[i].path;
